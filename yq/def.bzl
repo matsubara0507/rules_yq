@@ -26,7 +26,7 @@ def _yq_replace_impl(ctx):
     ]
 
 yq_replace = rule(
-    implementation = _yq_replace_impl,
+    _yq_replace_impl,
     doc = """
 Replace value with key on YAML file using yq
 
@@ -62,6 +62,26 @@ Replace value with key on YAML file using yq
             allow_single_file = True,
             default = ":replace.bash",
         ),
+    },
+    toolchains = [
+        "@rules_yq//yq:toolchain",
+    ],
+)
+
+def _yq_help_impl(ctx):
+    yq = ctx.toolchains["@rules_yq//yq:toolchain"].yq
+    output = ctx.actions.declare_file("help_dump")
+    ctx.actions.run(
+        executable = yq,
+        arguments = ctx.attr.arguments + ["--help", ">", output.path],
+        inputs = [yq],
+        outputs = [output],
+    )
+
+yq_help = rule(
+    _yq_help_impl,
+    attrs = {
+        "arguments": attr.string_list(default = []),
     },
     toolchains = [
         "@rules_yq//yq:toolchain",

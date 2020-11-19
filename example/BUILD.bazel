@@ -1,4 +1,4 @@
-load("@rules_yq//yq:def.bzl", "yq_replace")
+load("@rules_yq//yq:def.bzl", "yq_replace", "yq_help")
 
 yq_replace(
     name = "bumpup",
@@ -6,3 +6,5 @@ yq_replace(
     value = "0123456789",
     srcs = glob(["values*.yaml"]),
 )
+
+yq_help(name = "help")

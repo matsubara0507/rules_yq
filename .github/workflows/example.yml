@@ -18,5 +18,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: run bazel example
+    - name: run bazel example (help)
+      run: bazel run //example:help
+    - name: run bazel example (bumpup)
       run: bazel run //example:bumpup
