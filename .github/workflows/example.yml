@@ -19,6 +19,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: run bazel example (help)
-      run: bazel run //example:help
+      run: bazel build //example:help
     - name: run bazel example (bumpup)
       run: bazel run //example:bumpup
