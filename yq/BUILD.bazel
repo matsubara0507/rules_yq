@@ -15,3 +15,11 @@ toolchain_type(
     name = "toolchain",
     visibility = ["//visibility:public"],
 )
+
+load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+
+stardoc(
+    name = "docs",
+    input = "def.bzl",
+    out = "README.md",
+)

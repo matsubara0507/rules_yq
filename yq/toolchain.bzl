@@ -81,13 +81,21 @@ _yq_bindist_toolchain = repository_rule(
 )
 
 def register_yq_toolchain(version, os, checksum):
-    bindist_name = "rules_yq_bindist_{}".format(os)
+    """Register yq binary as toolchain
+
+    Args:
+      version: version of yq binary
+      os: platform (linux, mac or windows)
+      checksum: sha256 checkusum for https://github.com/mikefarah/yq/releases/download/{version}/{binary_name}
+    """
+    bindist_name = "rules_yq_binary_{}".format(os)
     toolchain_name = bindist_name + "-toolchain"
     _yq_bindist(name = bindist_name, os = os, checksum = checksum, version = version)
     _yq_bindist_toolchain(name = toolchain_name, bindist_name = bindist_name, os = os)
     native.register_toolchains("@{}//:toolchain".format(toolchain_name))
 
 def rules_yq_toolchains(version = YQ_DEFAULT_VERSION):
+    """Register yq binary that specified version for all platforms as toolchains."""
     if not YQ_BINDIST.get(version):
         fail("Binary distribution of yq {} is not available.".format(version))
     for os, checksum in YQ_BINDIST.get(version).items():
