@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eux
 
 ROOT=$(pwd)
 cd "$BUILD_WORKSPACE_DIRECTORY"
