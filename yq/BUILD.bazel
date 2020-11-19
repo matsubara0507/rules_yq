@@ -1,0 +1,17 @@
+filegroup(
+    name = "all",
+    srcs = glob(["*"]),
+    visibility = ["//visibility:public"],
+)
+
+exports_files(
+    [
+        "replace.bash",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "toolchain",
+    visibility = ["//visibility:public"],
+)
