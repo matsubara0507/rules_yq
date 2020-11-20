@@ -19,11 +19,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: run bazel example (help)
-      run: |
-        bazel build //example:help
-        cat bazel-bin/example/help_dump
+      run: bazel build //example:help
     - name: run bazel example (bumpup)
-      run: |
-        bazel build //example:bumpup
-        cat bazel-bin/example/bumpup.bash
-        bazel run //example:bumpup
+      run: bazel run //example:bumpup
