@@ -1,6 +1,6 @@
 FOR /F %%x IN ('pwd') DO SET ROOT=%%x
 ls %~dp0
-ls rules_yq
+ls ..\bumpup.bat.runfiles
 ls
 cd %BUILD_WORKSPACE_DIRECTORY%
 FOR %%x IN (@@SRC_PATHS@@) DO (
