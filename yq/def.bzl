@@ -1,11 +1,20 @@
 def _yq_replace_impl(ctx):
     yq = ctx.toolchains["@rules_yq//yq:toolchain"].yq
+    os = ctx.toolchains["@rules_yq//yq:toolchain"].os
+
     src_paths = []
     for src in ctx.files.srcs:
         src_paths.append(src.path)
-    exec_file = ctx.actions.declare_file(ctx.label.name + ".bash")
+
+    template = ctx.file._template
+    script_name = ctx.label.name + ".bash"
+    if os == "windows":
+        template = ctx.file._windows_template
+        script_name = ctx.label.name + ".bat"
+
+    exec_file = ctx.actions.declare_file(script_name)
     ctx.actions.expand_template(
-        template = ctx.file._template,
+        template = template,
         output = exec_file,
         is_executable = True,
         substitutions = {
@@ -14,7 +23,7 @@ def _yq_replace_impl(ctx):
             "@@YAML_KEY@@": ctx.attr.key,
             "@@YAML_VALUE@@": ctx.attr.value,
             "@@YAML_TAG@@": ctx.attr.tag,
-        }
+        },
     )
     runfiles = ctx.runfiles(files = [yq])
     return [
@@ -62,6 +71,10 @@ Replace value with key on YAML file using yq
             allow_single_file = True,
             default = ":replace.bash",
         ),
+        "_windows_template": attr.label(
+            allow_single_file = True,
+            default = ":replace.bat",
+        )
     },
     toolchains = [
         "@rules_yq//yq:toolchain",
