@@ -1,5 +1,5 @@
 FOR /F %%x IN ('pwd') DO SET ROOT=%%x
-echo %~dp0
+ls %~dp0
 ls
 cd %BUILD_WORKSPACE_DIRECTORY%
 FOR %%x IN (@@SRC_PATHS@@) DO (
