@@ -30,7 +30,7 @@ def _yq_replace_impl(ctx):
             "@@YAML_TAG@@": ctx.attr.tag,
         },
     )
-    runfiles = ctx.runfiles(files = [yq])
+    runfiles = ctx.runfiles(files = [yq] + ctx.files.srcs)
     return [
         DefaultInfo(
             files = depset([exec_file]),
