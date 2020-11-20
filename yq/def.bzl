@@ -4,13 +4,18 @@ def _yq_replace_impl(ctx):
 
     src_paths = []
     for src in ctx.files.srcs:
-        src_paths.append(src.path)
+        src_path = src.path
+        if os == "windows":
+            src_path = src.path.replace("/", "\\")
+        src_paths.append(src_path)
 
     template = ctx.file._template
     script_name = ctx.label.name + ".bash"
+    yq_path = yq.path
     if os == "windows":
         template = ctx.file._windows_template
         script_name = ctx.label.name + ".bat"
+        yq_path = yq.path.replace("/", "\\")
 
     exec_file = ctx.actions.declare_file(script_name)
     ctx.actions.expand_template(
@@ -18,7 +23,7 @@ def _yq_replace_impl(ctx):
         output = exec_file,
         is_executable = True,
         substitutions = {
-            "@@YQ_COMMAND@@": yq.path,
+            "@@YQ_COMMAND@@": yq_path,
             "@@SRC_PATHS@@": ' '.join(src_paths),
             "@@YAML_KEY@@": ctx.attr.key,
             "@@YAML_VALUE@@": ctx.attr.value,
