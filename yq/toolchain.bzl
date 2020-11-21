@@ -33,7 +33,7 @@ def _yq_bindist_impl(ctx):
         content = """
 load("@rules_yq//yq:toolchain.bzl", "yq_toolchain")
 exports_files(["yq-{os}"])
-yq_toolchain(name = "{os}_info", yq = ":yq-{os}")
+yq_toolchain(name = "{os}_info", yq = ":yq-{os}", os = "{os}")
         """.format(os = os),
     )
 
@@ -105,6 +105,7 @@ def rules_yq_toolchains(version = YQ_DEFAULT_VERSION):
 def _yq_toolchain_impl(ctx):
     return [platform_common.ToolchainInfo(
         yq = ctx.file.yq,
+        os = ctx.attr.os,
     )]
 
 yq_toolchain = rule(
@@ -114,5 +115,6 @@ yq_toolchain = rule(
             allow_single_file = True,
             mandatory = True,
         ),
+        "os": attr.string(),
     },
 )

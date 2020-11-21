@@ -1,4 +1,6 @@
 def _yq_replace_impl(ctx):
+    if ctx.toolchains["@rules_yq//yq:toolchain"].os == "windows":
+        fail("windows is not supported.")
     yq = ctx.toolchains["@rules_yq//yq:toolchain"].yq
     src_paths = []
     for src in ctx.files.srcs:
