@@ -1,4 +1,4 @@
-YQ_DEFAULT_VERSION = "3.4.1"
+load(":default.bzl", "YQ_DEFAULT_VERSION")
 
 YQ_BINDIST = {
     "3.4.1": {
