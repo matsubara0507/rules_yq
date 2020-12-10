@@ -1,0 +1,49 @@
+name: Update if release new version
+on:
+  schedule:
+  - cron:  '0 10 * * *'
+
+jobs:
+  build:
+    name: Build new version commit
+    runs-on: ubuntu-latest
+    env:
+      DEFAULT_FILE_PATH: yq/default.bzl
+      LATEST_LINK: https://api.github.com/repos/mikefarah/yq/releases/latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: main
+
+    - name: Set default version
+      id: default
+      run: echo "::set-output name=version::$(sed -e s/YQ_DEFAULT_VERSION\ =\ //g $DEFAULT_FILE_PATH | sed -e s/\"//g)"
+
+    - name: Set latest version
+      id: latest
+      run: echo "::set-output name=version::$(curl -s $LATEST_LINK | jq .tag_name | sed -e s/\"//g)"
+
+    - name: Update new version default.bzl
+      if: ${{ steps.latest.outputs.version != steps.default.outputs.version }}
+      env:
+        NEW_VERSION: ${{ steps.latest.outputs.version }}
+      run: echo "YQ_DEFAULT_VERSION = \"$NEW_VERSION\"" > $DEFAULT_FILE_PATH
+
+    - name: Create Pull Request
+      if: ${{ steps.latest.outputs.version != steps.default.outputs.version }}
+      uses: peter-evans/create-pull-request@v3.5.1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'Feat: update default yq version'
+        title: Release new yq version ${{ steps.latest.outputs.version }}
+        body: |
+         @matsubara0507
+         - [x] update default version in yq
+         - [ ] add new checksums to yq/toolchain.bzl
+         - [ ] update documents (README, actions.yml)
+         - [ ] update sample workflow
+        labels: New yq Version
+        branch: yq-version-${{ steps.latest.outputs.version }}
+        base: main
+        draft: true
