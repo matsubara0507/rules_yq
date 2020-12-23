@@ -3,6 +3,6 @@ load("@rules_yq//yq:def.bzl", "yq_replace")
 yq_replace(
     name = "bumpup",
     key = "image.tag",
-    value = "0123456789",
+    value = '"0123456789"',
     srcs = glob(["values*.yaml"]),
 )
