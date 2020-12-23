@@ -18,3 +18,10 @@ yq_replace(
     srcs = glob(["values*.yaml"]),
 )
 ```
+
+## Supported versions:
+
+- 4.1.0
+- 4.0.0
+- 3.4.1
+- 3.4.0
