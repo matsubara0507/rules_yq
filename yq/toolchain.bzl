@@ -1,6 +1,16 @@
 load(":default.bzl", "YQ_DEFAULT_VERSION")
 
 YQ_BINDIST = {
+    "4.1.0": {
+        "linux" : "682f585b09b61e2fcf12d2e1c267414de7869d2e0ebcdd293d8d34388eb3dc82",
+        "mac": "4184c1f8bac6097486bd269dcd41190f3776061c15c30d18631b7336d402df2a",
+        "windows": "60bda4c60e0e21faa5389ca9d87165b7fde4b875073e3e15fccba66ec4332a25",
+    },
+    "4.0.0": {
+        "linux" : "9d659ff92b657a8016a7936705ec71fdc4f950968a76a6f7e4c64e14d8adf801",
+        "mac": "9fa9d4d42fa3477b2d172e4b2498124fc78c0bd6a98639eeb37ce2519912f484",
+        "windows": "de8cda9cb338968f5187110f15efdcb5bfae4a3ab5988a77a30cf1c4159a47b2",
+    },
     "3.4.1": {
         "linux" : "adbc6dd027607718ac74ceac15f74115ac1f3caef68babfb73246929d4ffb23c",
         "mac": "5553d4640550debed5213a5eb6016d3a3485ca8a36e9c71996610280755d5a50",
@@ -21,8 +31,11 @@ def _yq_bindist_impl(ctx):
         "windows": "yq_windows_amd64.exe",
     }.get(os)
     version = ctx.attr.version
+    url = "https://github.com/mikefarah/yq/releases/download/{}/{}".format(version, bin_name)
+    if version in ["4.1.0"]:
+        url = "https://github.com/mikefarah/yq/releases/download/v{}/{}".format(version, bin_name)
     ctx.download(
-        url = "https://github.com/mikefarah/yq/releases/download/{}/{}".format(version, bin_name),
+        url = url,
         sha256 = ctx.attr.checksum,
         output = "yq-{}".format(os),
         executable = True,
@@ -33,8 +46,8 @@ def _yq_bindist_impl(ctx):
         content = """
 load("@rules_yq//yq:toolchain.bzl", "yq_toolchain")
 exports_files(["yq-{os}"])
-yq_toolchain(name = "{os}_info", yq = ":yq-{os}", os = "{os}")
-        """.format(os = os),
+yq_toolchain(name = "{os}_info", yq = ":yq-{os}", version = "{version}", os = "{os}")
+        """.format(version = version, os = os),
     )
 
 _yq_bindist = repository_rule(
@@ -105,6 +118,7 @@ def rules_yq_toolchains(version = YQ_DEFAULT_VERSION):
 def _yq_toolchain_impl(ctx):
     return [platform_common.ToolchainInfo(
         yq = ctx.file.yq,
+        version = ctx.attr.version,
         os = ctx.attr.os,
     )]
 
@@ -115,6 +129,7 @@ yq_toolchain = rule(
             allow_single_file = True,
             mandatory = True,
         ),
+        "version": attr.string(),
         "os": attr.string(),
     },
 )

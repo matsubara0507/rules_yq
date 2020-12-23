@@ -6,7 +6,8 @@ filegroup(
 
 exports_files(
     [
-        "replace.bash",
+        "replace.v3.bash",
+        "replace.v4.bash",
     ],
     visibility = ["//visibility:public"],
 )

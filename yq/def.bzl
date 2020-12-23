@@ -6,8 +6,11 @@ def _yq_replace_impl(ctx):
     for src in ctx.files.srcs:
         src_paths.append(src.path)
     exec_file = ctx.actions.declare_file(ctx.label.name + ".bash")
+    template = ctx.file._v4_template
+    if ctx.toolchains["@rules_yq//yq:toolchain"].version[0] == "3":
+        template = ctx.file._v3_template
     ctx.actions.expand_template(
-        template = ctx.file._template,
+        template = template,
         output = exec_file,
         is_executable = True,
         substitutions = {
@@ -60,9 +63,13 @@ Replace value with key on YAML file using yq
             mandatory = True,
             doc = "target YAML files",
         ),
-        "_template": attr.label(
+        "_v3_template": attr.label(
             allow_single_file = True,
-            default = ":replace.bash",
+            default = ":replace.v3.bash",
+        ),
+        "_v4_template": attr.label(
+            allow_single_file = True,
+            default = ":replace.v4.bash",
         ),
     },
     toolchains = [
