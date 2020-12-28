@@ -22,7 +22,7 @@ jobs:
 
     - name: Set latest version
       id: latest
-      run: echo "::set-output name=version::$(curl -s $LATEST_LINK | jq .tag_name | sed -e s/\"//g)"
+      run: echo "::set-output name=version::$(curl -s $LATEST_LINK | jq .tag_name | sed -e s/\"//g | sed -e s/^v//g)"
 
     - name: Update new version default.bzl
       if: ${{ steps.latest.outputs.version != steps.default.outputs.version }}
@@ -32,7 +32,7 @@ jobs:
 
     - name: Create Pull Request
       if: ${{ steps.latest.outputs.version != steps.default.outputs.version }}
-      uses: peter-evans/create-pull-request@v3.5.1
+      uses: peter-evans/create-pull-request@v3.5.2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: 'Feat: update default yq version'
