@@ -1,6 +1,16 @@
 load(":default.bzl", "YQ_DEFAULT_VERSION")
 
 YQ_BINDIST = {
+    "4.2.1": {
+        "linux" : "51018dedf4cb510c7cf6c42663327605e7e0c315747fe584fbf83cc10747449c",
+        "mac": "9d84f133675164694039fc9072a322e3ec0c96444a68be38082ebc85ec11d55a",
+        "windows": "d17497653f8f22f22c4cfd9de2277f8a66e9a29932061f5c8a45468c38399ca9",
+    },
+    "4.2.0": {
+        "linux" : "5d44bd64e264e9029c5f06bcd960ba162d7ed7ddd1781f02a28d62f50577b632",
+        "mac": "83b9dc96e75799e162035b2ee2dffc0c51de869c27a2e294eb0aee8653a19804",
+        "windows": "74c633bcff2e275a6635248324df27ff2249efea3a8ce44c097f856c6c2027d9",
+    },
     "4.1.0": {
         "linux" : "682f585b09b61e2fcf12d2e1c267414de7869d2e0ebcdd293d8d34388eb3dc82",
         "mac": "4184c1f8bac6097486bd269dcd41190f3776061c15c30d18631b7336d402df2a",
@@ -32,7 +42,7 @@ def _yq_bindist_impl(ctx):
     }.get(os)
     version = ctx.attr.version
     url = "https://github.com/mikefarah/yq/releases/download/{}/{}".format(version, bin_name)
-    if version in ["4.1.0"]:
+    if version in ["4.1.0", "4.2.0", "4.2.1"]:
         url = "https://github.com/mikefarah/yq/releases/download/v{}/{}".format(version, bin_name)
     ctx.download(
         url = url,
