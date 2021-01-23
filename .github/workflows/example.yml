@@ -15,10 +15,8 @@ jobs:
           - macos-10.15
         yq_version:
           - 4.4.1
-          - 4.4.0
           - 4.3.2
-          - 4.3.1
-          - 4.3.0
+          - 3.4.1
       fail-fast: false
     steps:
     - name: Checkout
