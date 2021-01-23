@@ -1,6 +1,31 @@
 load(":default.bzl", "YQ_DEFAULT_VERSION")
 
 YQ_BINDIST = {
+    "4.4.1": {
+        "linux" : "42826789ba1f42ef9effd154090f48e7a944554163e83b5ac2e06ad5e775fabf",
+        "mac": "48e156bc078b6664d1e59bab295241d05a0b4a48fbf54cc2788e3ac58ba99e0d",
+        "windows": "2a4911f9690e9a5ec1ef4070b6071fe9853b0ba30c76c88e6fd50629adcd1399",
+    },
+    "4.4.0": {
+        "linux" : "9d9d106b849b8d7c17a3e794adce902f9cd2fe9f2fa33e4351474f4a5950bc11",
+        "mac": "4086f858e597b6d4a8034b6ba9ae4bae7bffe5f0c673cb7c2a586f0c9c322d2a",
+        "windows": "5153242e4d9392b7770346a5bee6a5b6a3d7570dfe6696a76c9a23f056d17303",
+    },
+    "4.3.2": {
+        "linux" : "8b6818ef69b3074da5352e7ade28b5e0577570c560f6797b8bd0b8cb2d838c97",
+        "mac": "65bca3b48c5109860da67c34c721c91827aa0104bff0c3f44c0aa690b6ac075f",
+        "windows": "f1a0d8ac55b0e2b88852502d805d735c272d4927e3d21020bd983b75ca516eee",
+    },
+    "4.3.1": {
+        "linux" : "96d83b742cf348eee7c73b2c86d42ca80df431d3f7cf7172d51b11912e590717",
+        "mac": "31d8c84a80f61210ff2fcef50a5b03c36ee5e3b22ed93f11233379471b3ea933",
+        "windows": "25952c4d78ab61f4e37268fac3a5a651b39fd92e5ef61131771090a47fa78a96",
+    },
+    "4.3.0": {
+        "linux" : "607540cbc413e5f6fe49109a176f238bf59be3977f60fd00af01352a53457f81",
+        "mac": "1c40f5d6d02d7514930196c0dd6b5d3d73d811cfc847ca1081267f49b296aa89",
+        "windows": "1a3d31ce1bd2ff002a57531f6c04c42bd39b5ba4a1be609b3dc6e5a6d9f88a55",
+    },
     "4.2.1": {
         "linux" : "51018dedf4cb510c7cf6c42663327605e7e0c315747fe584fbf83cc10747449c",
         "mac": "9d84f133675164694039fc9072a322e3ec0c96444a68be38082ebc85ec11d55a",
@@ -42,7 +67,7 @@ def _yq_bindist_impl(ctx):
     }.get(os)
     version = ctx.attr.version
     url = "https://github.com/mikefarah/yq/releases/download/{}/{}".format(version, bin_name)
-    if version in ["4.1.0", "4.2.0", "4.2.1"]:
+    if version in ["4.1.0", "4.2.0", "4.2.1", "4.3.0", "4.3.1", "4.3.2", "4.4.0", "4.4.1"]:
         url = "https://github.com/mikefarah/yq/releases/download/v{}/{}".format(version, bin_name)
     ctx.download(
         url = url,
