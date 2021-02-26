@@ -1,6 +1,26 @@
 load(":default.bzl", "YQ_DEFAULT_VERSION")
 
 YQ_BINDIST = {
+    "4.6.1": {
+        "linux" : "a339079fadf5e01d69067349b67db695db1a4f5046281713e35d9b6ca790b499",
+        "mac": "de2f6ec457ac8cd021ead2c1cd64f1a84fa25dee8c77861fddcabc09e9aaf836",
+        "windows": "b48326190c1072b7b7f6243e8610314836e7c13c92a1486b759d7f352c50a0d4",
+    },
+    "4.6.0": {
+        "linux" : "3cd45de096cc3c5fcff3ba4b3fbc10cd2ad606c670b626b51f60ca66b7ddcd9a",
+        "mac": "3203a4fe1e81d8f8ab04b2ddf294a9984951c8a170f7e33b3d447fb70ff3e82e",
+        "windows": "290841f687a67e682eaafd6b51854246057c11738f59778096935d1aa10dfb35",
+    },
+    "4.5.1": {
+        "linux" : "4995d892526fb83f13c424e4496acc047f8c2cccef340a7f7c97ea5a15a8802c",
+        "mac": "df9d61376b0b2ef894f4b271684e4bbf6ab01054a2f645115f1ec2eac44f261e",
+        "windows": "76603b55af22a565bdfd5180818515271fec10b8030318c054dc91c858308394",
+    },
+    "4.5.0": {
+        "linux" : "b08830201aed3b75a32aebf29139877158904fe9efb05af628f43c239fb95830",
+        "mac": "dcfc1e68a0e68de5b83721fb1c07d9cdd9b1f9d0687792206548ec3afea188ec",
+        "windows": "1c8c09c18ddac814be7cfcb23b209aa3c6d5162c886973a3e1716d31588eb6ac",
+    },
     "4.4.1": {
         "linux" : "42826789ba1f42ef9effd154090f48e7a944554163e83b5ac2e06ad5e775fabf",
         "mac": "48e156bc078b6664d1e59bab295241d05a0b4a48fbf54cc2788e3ac58ba99e0d",
@@ -66,9 +86,9 @@ def _yq_bindist_impl(ctx):
         "windows": "yq_windows_amd64.exe",
     }.get(os)
     version = ctx.attr.version
-    url = "https://github.com/mikefarah/yq/releases/download/{}/{}".format(version, bin_name)
-    if version in ["4.1.0", "4.2.0", "4.2.1", "4.3.0", "4.3.1", "4.3.2", "4.4.0", "4.4.1"]:
-        url = "https://github.com/mikefarah/yq/releases/download/v{}/{}".format(version, bin_name)
+    url = "https://github.com/mikefarah/yq/releases/download/v{}/{}".format(version, bin_name)
+    if version in ["3.4.0", "3.4.1", "4.0.0"]:
+        url = "https://github.com/mikefarah/yq/releases/download/{}/{}".format(version, bin_name)
     ctx.download(
         url = url,
         sha256 = ctx.attr.checksum,
