@@ -76,3 +76,75 @@ Replace value with key on YAML file using yq
         "@rules_yq//yq:toolchain",
     ],
 )
+
+def _setup_deps(deps):
+    """Collects source files and import flags of transitive dependencies.
+    Args:
+      deps: List of deps labels from ctx.attr.deps.
+    Returns:
+      Returns a struct containing the following fields:
+        transitive_sources: List of Files containing sources of transitive
+            dependencies
+    """
+    transitive_sources = [dep.files for dep in deps]
+
+    return struct(
+        transitive_sources = depset(transitive = transitive_sources, order = "postorder"),
+    )
+
+def _yq_pretty_print_impl(ctx):
+    yq = ctx.toolchains["@rules_yq//yq:toolchain"].yq
+    depinfo = _setup_deps(ctx.attr.deps)
+    sources = depset(ctx.files.srcs, transitive = [depinfo.transitive_sources])
+    compile_inputs = ctx.files.srcs + depinfo.transitive_sources.to_list()
+    outputs = [ctx.outputs.out]
+    output_path = ctx.outputs.out.path
+    if ctx.toolchains["@rules_yq//yq:toolchain"].version[0] == "4":
+        command = [yq.path] + ["eval -P"] + [f.path for f in sources.to_list()] + ["> " + output_path]
+    else:
+        command = [yq.path] + ["r"] + [f.path for f in sources.to_list()] + ["w " + output_path]
+
+    ctx.actions.run_shell(
+        inputs = compile_inputs,
+        tools = [yq],
+        outputs = outputs,
+        mnemonic = "yq",
+        command = " ".join(command),
+        use_default_shell_env = True,
+        progress_message = "Pretty-printing using yq for " + ctx.label.name,
+    )
+
+yq_pretty_print = rule(
+    implementation = _yq_pretty_print_impl,
+    doc = """
+Pretty-print a YAML file using yq
+
+### Example
+
+  ```
+  yq_pretty_print(
+      name = "foo",
+      deps = [":foo_json"],
+      out = "bar.yml",
+  )
+  ```
+""",
+    attrs = {
+        "srcs": attr.label_list(
+            allow_files = True,
+            mandatory = False,
+            doc = "target YAML files",
+        ),
+        "out": attr.output(
+            mandatory = True,
+            doc = "output YAML file",
+        ),
+        "deps": attr.label_list(
+            allow_files = False,
+            providers = [DefaultInfo],
+        ),
+    },
+    toolchains = [
+        "@rules_yq//yq:toolchain",
+    ],
+)
