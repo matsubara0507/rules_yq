@@ -17,10 +17,10 @@ toolchain_type(
     visibility = ["//visibility:public"],
 )
 
-load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
+# load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
 
-stardoc(
-    name = "docs",
-    input = "def.bzl",
-    out = "README.md",
-)
+# stardoc(
+#     name = "docs",
+#     input = "def.bzl",
+#     out = "README.md",
+# )
