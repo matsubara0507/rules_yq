@@ -102,7 +102,7 @@ def _yq_pretty_print_impl(ctx):
     if ctx.toolchains["@rules_yq//yq:toolchain"].version[0] == "4":
         command = [yq.path] + ["eval -P"] + [f.path for f in sources.to_list()] + ["> " + output_path]
     else:
-        command = [yq.path] + ["r"] + [f.path for f in sources.to_list()] + ["w " + output_path]
+        command = [yq.path] + ["r"] + [f.path for f in sources.to_list()] + ["> " + output_path]
 
     ctx.actions.run_shell(
         inputs = compile_inputs,
