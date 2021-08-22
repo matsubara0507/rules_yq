@@ -1,8 +1,14 @@
-load("@rules_yq//yq:def.bzl", "yq_replace")
+load("@rules_yq//yq:def.bzl", "yq_replace", "yq_pretty_print")
 
 yq_replace(
     name = "bumpup",
     key = "image.tag",
     value = '"0123456789"',
     srcs = glob(["values*.yaml"]),
+)
+
+yq_pretty_print(
+    name = "pp",
+    srcs = ["values.yaml"],
+    out = "temp.yaml",
 )

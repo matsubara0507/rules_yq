@@ -1,5 +1,38 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+<a name="#yq_pretty_print"></a>
+
+## yq_pretty_print
+
+<pre>
+yq_pretty_print(<a href="#yq_pretty_print-name">name</a>, <a href="#yq_pretty_print-deps">deps</a>, <a href="#yq_pretty_print-out">out</a>, <a href="#yq_pretty_print-srcs">srcs</a>)
+</pre>
+
+
+Pretty-print a YAML file using yq
+
+### Example
+
+  ```
+  yq_pretty_print(
+      name = "foo",
+      deps = [":foo_json"],
+      out = "bar.yml",
+  )
+  ```
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+| name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| deps |  -   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| out |  output YAML file   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| srcs |  target YAML files   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+
+
 <a name="#yq_replace"></a>
 
 ## yq_replace
