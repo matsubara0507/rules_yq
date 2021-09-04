@@ -24,15 +24,21 @@ jobs:
       id: latest
       run: echo "::set-output name=version::$(curl -s $LATEST_LINK | jq .tag_name | sed -e s/\"//g | sed -e s/^v//g)"
 
+    - name: Check exist branch
+      id: branch
+      env:
+        branch: yq-version-${{ steps.latest.outputs.version }}
+      run: echo "::set-output name=exist::$(git ls-remote --heads origin $branch | wc -l)"
+
     - name: Update new version default.bzl
-      if: ${{ steps.latest.outputs.version != steps.default.outputs.version }}
+      if: ${{ steps.latest.outputs.version != steps.default.outputs.version && step.branch.outputs.exist == 0 }}
       env:
         NEW_VERSION: ${{ steps.latest.outputs.version }}
       run: echo "YQ_DEFAULT_VERSION = \"$NEW_VERSION\"" > $DEFAULT_FILE_PATH
 
     - name: Create Pull Request
-      if: ${{ steps.latest.outputs.version != steps.default.outputs.version }}
-      uses: peter-evans/create-pull-request@v3.5.2
+      if: ${{ steps.latest.outputs.version != steps.default.outputs.version && step.branch.outputs.exist == 0 }}
+      uses: peter-evans/create-pull-request@v3.10.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: 'Feat: update default yq version'
