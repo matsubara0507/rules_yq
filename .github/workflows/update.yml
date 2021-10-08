@@ -31,7 +31,7 @@ jobs:
       run: echo "::set-output name=exist::$(git ls-remote --heads origin $branch | wc -l)"
 
     - name: Update new version default.bzl
-      if: ${{ steps.latest.outputs.version != steps.default.outputs.version && step.branch.outputs.exist == 0 }}
+      if: ${{ steps.latest.outputs.version != steps.default.outputs.version && steps.branch.outputs.exist == 0 }}
       env:
         NEW_VERSION: ${{ steps.latest.outputs.version }}
       run: echo "YQ_DEFAULT_VERSION = \"$NEW_VERSION\"" > $DEFAULT_FILE_PATH
