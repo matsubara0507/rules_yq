@@ -1,6 +1,36 @@
 load(":default.bzl", "YQ_DEFAULT_VERSION")
 
 YQ_BINDIST = {
+    "4.18.1": {
+        "linux" : "c02cc9c58a3a1531c224406973d3d8b8c4e47bf5064c3af48a812c8c19d2d46e",
+        "mac": "5de3dcdd31d5c9b936ca704d48d7ab5b8ccd05247eafb3587084d6ca854746fc",
+        "windows": "5aec80c1f8ecc186bd6dfdc7db614dc853c5456b357f93e1a3a302bf2820de40",
+    },
+    "4.17.2": {
+        "linux" : "60b19be5bc91b21c7844cb22b835d243d1480b465ee3a702c542afa2304dacb3",
+        "mac": "fe9ba938d2a7d29abd48b72861cd9201f87395cc476c5a9beb52596daa40cd14",
+        "windows": "034ca003b29e6fad0c84810b0e7e09e1b97cd12aa045b17d2b14caf3524fa4dd",
+    },
+    "4.16.2": {
+        "linux" : "5c911c4da418ae64af5527b7ee36e77effb85de20c2ce732ed14c7f72743084d",
+        "mac": "b3fdcc1c5e78ed57c17ea313cbef9517399a91cb0dc7526ecd70d5088f220104",
+        "windows": "101cb3c698ea348bc5f842a6bd29611987566ebc97aa4985dc2d470ed1ceabaa",
+    },
+    "4.15.1": {
+        "linux" : "507d872f6775ccad72a5ef15f785d269e498b1e2b3774786e9ac1b5e2c9d6c3f",
+        "mac": "22e2c9cf8c90150874d68cafe8c2c7b9cb6709fb15fcb2247fb37f85dcc004e4",
+        "windows": "d05d61f1915379231fb27466fd109f21bee50d2ab19d6a100b9ba2a33f38e115",
+    },
+    "4.14.2": {
+        "linux" : "dd2f8e4e711b434606495c16d3ffb6c33f47c5c02c72afb63b55b3741d9ef8c8",
+        "mac": "c2361d7fc6193a963dd2acb729f575ee78f07b074f2c7250921bb6698d378480",
+        "windows": "0307ca4eea66918fdca78fbc480fa9a4d0fa6ecf5aecb63b0408d620215cb709",
+    },
+    "4.13.5": {
+        "linux" : "244a3e37b0c23c70574c5b50937222dd37b785974c2b9a9abe0d31db190c9eea",
+        "mac": "c261173d53636f4ab28bec6388a24eb554a1cccec5daf6988d882b2b969952ee",
+        "windows": "e45ad07b3bdae4be77979a7080e62973658ea22156c7877b0f6e47c3b0f82723",
+    },
     "4.12.0": {
         "linux" : "8716766cb49ab9dd7df5622d80bb217b94a21d0f3d3dc3d074c3ec7a0c7f67ea",
         "mac": "252d51224f50cbbd703897aa9a9c185c3ff016f4a4de369d78c66a8724ce9d79",

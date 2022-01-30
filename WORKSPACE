@@ -2,7 +2,7 @@ workspace(name = "rules_yq")
 
 load("@rules_yq//yq:toolchain.bzl", "rules_yq_toolchains")
 
-rules_yq_toolchains(version = "4.12.0")
+rules_yq_toolchains(version = "4.18.1")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
