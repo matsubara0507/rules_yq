@@ -17,14 +17,14 @@ YQ_BINDIST = {
         "windows": "8354524a4e661c31af0e4da614969ee033313201b8d1abe928fce0fa68fe397f",
     },
     "4.21.1": {
-        "linux" : "3fbb76eaf00c3639468eb2613a6fa21933b53744e0918c4b12cdf4e1c6788de3",
-        "mac": "4cad49e6c4620735c9ea6aa8ec880e60caec86a28c61515c572cdd0eed5fd8c0",
-        "windows": "82cb5172ae2c9b554010734a14c527e7e6630d60e325fd676078ef9913e9d4d8",
-    },
-    "4.20.2": {
         "linux" : "50778261e24c70545a3ff8624df8b67baaff11f759e6e8b2e4c9c781df7ea8dc",
         "mac": "ec61f8319e7f09e58107ce3c7ffbea1bc4d050c6cc963505ee666d35bde7c4cb",
         "windows": "01ed6f93943900e5fa282f9362271596df77db5e8b8319fc9cce6947d80ebd83",
+    },
+    "4.20.2": {
+        "linux" : "3fbb76eaf00c3639468eb2613a6fa21933b53744e0918c4b12cdf4e1c6788de3",
+        "mac": "4cad49e6c4620735c9ea6aa8ec880e60caec86a28c61515c572cdd0eed5fd8c0",
+        "windows": "82cb5172ae2c9b554010734a14c527e7e6630d60e325fd676078ef9913e9d4d8",
     },
     "4.19.1": {
         "linux" : "6b8f8cfc0aaa180121057b63c8d5c60b1567eb34ca38ac2e8e7e2d3b77bbba9f",
