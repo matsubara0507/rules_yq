@@ -1,6 +1,11 @@
 load(":default.bzl", "YQ_DEFAULT_VERSION")
 
 YQ_BINDIST = {
+    "4.30.8": {
+        "linux" : "6c911103e0dcc54e2ba07e767d2d62bcfc77452b39ebaee45b1c46f062f4fd26",
+        "mac": "123a992cada25421db5c068895006047d3dcdb61987c00e93a1127e6af61b93a",
+        "windows": "5985f3f3d0c48b7ddd1d4300d0678f294ea04ef3b49d2560acc9e791162c610d",
+    },
     "4.24.5": {
         "linux" : "c93a696e13d3076e473c3a43c06fdb98fafd30dc2f43bc771c4917531961c760",
         "mac": "c0e59c6f888061569ce1fd0468a5b1345ab5c7df8d7163e6efe51efe65d80237",

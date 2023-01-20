@@ -11,11 +11,10 @@ jobs:
     strategy:
       matrix:
         operating-system:
-          - ubuntu-20.04
-          - macos-10.15
+          - ubuntu-22.04
+          - macos-12
         yq_version:
-          - 4.24.5
-          - 4.23.1
+          - 4.30.8
           - 3.4.1
       fail-fast: false
     steps:

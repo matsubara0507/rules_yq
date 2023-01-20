@@ -20,6 +20,7 @@ yq_replace(
 ```
 
 ## Supported versions:
+- 4.30.8
 - 4.24.5
 - 4.23.1
 - 4.22.1
