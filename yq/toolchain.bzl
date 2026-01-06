@@ -243,6 +243,9 @@ _yq_bindist_toolchain = repository_rule(
     },
 )
 
+yq_bindist_repo = _yq_bindist
+yq_bindist_toolchain_repo = _yq_bindist_toolchain
+
 def register_yq_toolchain(version, os, checksum):
     """Register yq binary as toolchain
 
@@ -257,6 +260,8 @@ def register_yq_toolchain(version, os, checksum):
     _yq_bindist_toolchain(name = toolchain_name, bindist_name = bindist_name, os = os)
     native.register_toolchains("@{}//:toolchain".format(toolchain_name))
 
+# This macro is for WORKSPACE users. bzlmod users should use the module
+# extension in //yq:extensions.bzl to register toolchains instead.
 def rules_yq_toolchains(version = YQ_DEFAULT_VERSION):
     """Register yq binary that specified version for all platforms as toolchains."""
     if not YQ_BINDIST.get(version):

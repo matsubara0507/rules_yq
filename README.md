@@ -19,6 +19,35 @@ yq_replace(
 )
 ```
 
+## Bzlmod
+
+`MODULE.bazel`
+
+```py
+bazel_dep(name = "rules_yq", version = "x.y.z")
+
+yq = use_extension("@rules_yq//yq:extensions.bzl", "toolchains")
+yq.toolchains(
+    version = "4.24.5",
+)
+
+use_repo(
+    yq,
+    "rules_yq_binary_linux",
+    "rules_yq_binary_mac",
+    "rules_yq_binary_windows",
+    "rules_yq_binary_linux-toolchain",
+    "rules_yq_binary_mac-toolchain",
+    "rules_yq_binary_windows-toolchain",
+)
+
+register_toolchains(
+    "@rules_yq_binary_linux-toolchain//:toolchain",
+    "@rules_yq_binary_mac-toolchain//:toolchain",
+    "@rules_yq_binary_windows-toolchain//:toolchain",
+)
+```
+
 ## Supported versions:
 - 4.30.8
 - 4.24.5

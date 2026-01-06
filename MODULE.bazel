@@ -1,0 +1,8 @@
+module(
+    name = "rules_yq",
+)
+
+bazel_dep(
+    name = "platforms",
+    version = "1.0.0",
+)
