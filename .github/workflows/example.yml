@@ -11,15 +11,15 @@ jobs:
     strategy:
       matrix:
         operating-system:
-          - ubuntu-22.04
-          - macos-12
+          - ubuntu-latest
+          - macos-latest
         yq_version:
           - 4.30.8
           - 3.4.1
       fail-fast: false
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v6
     - name: Generate WORKSPACE for test
       run: |
         echo 'workspace(name = "rules_yq")' > WORKSPACE

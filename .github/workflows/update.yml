@@ -12,7 +12,7 @@ jobs:
       LATEST_LINK: https://api.github.com/repos/mikefarah/yq/releases/latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v6
       with:
         ref: main
 
@@ -38,7 +38,7 @@ jobs:
 
     - name: Create Pull Request
       if: ${{ steps.latest.outputs.version != steps.default.outputs.version && steps.branch.outputs.exist == 0 }}
-      uses: peter-evans/create-pull-request@v3.10.0
+      uses: peter-evans/create-pull-request@v8.0.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: 'Feat: update default yq version'
